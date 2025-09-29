@@ -124,7 +124,8 @@ void Edge_Detect(Image &image)
     edged_img.saveImage("edged_img.png");
 }
 void Menue(){
-    
+    cout<<"choose filter";
+
 }
 int main()
 {
