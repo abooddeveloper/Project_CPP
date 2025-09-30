@@ -24,6 +24,63 @@ Image ResizeTo(Image &src, int newWidth, int newHeight)
     return resized;
 }
 
+void black_white(Image &image)
+{
+    for (int y = 0; y < image.height; y++)
+    {
+        for (int x = 0; x < image.width; x++)
+        {
+            unsigned char red = image(x, y, 0);
+            unsigned char green = image(x, y, 1);
+            unsigned char blue = image(x, y, 2);
+            unsigned char gray = (red + green + blue) / 3;
+            unsigned char bw;
+            if (gray > 127)
+            {
+                bw = 255;
+            }
+            else
+            {
+                bw = 0;
+            }
+            image(x, y, 0) = bw;
+            image(x, y, 1) = bw;
+            image(x, y, 2) = bw;
+        }
+    }
+    image.saveImage("output_bw.jpg");
+}
+
+void horizontal_flip(Image &image)
+{
+    for (int y = 0; y < image.height; y++)
+    {
+        for (int x = 0; x < image.width / 2; x++)
+        {
+            for (int c = 0; c < image.channels; c++)
+            {
+                swap(image(x, y, c), image(image.width - 1 - x, y, c));
+            }
+        }
+    }
+    image.saveImage("output_horizontal.png");
+}
+
+void vertical_flip(Image &image)
+{
+    for (int y = 0; y < image.height / 2; y++)
+    {
+        for (int x = 0; x < image.width; x++)
+        {
+            for (int c = 0; c < image.channels; c++)
+            {
+                swap(image(x, y, c), image(x, image.height - 1 - y, c));
+            }
+        }
+    }
+    image.saveImage("output_vertical.png");
+}
+
 void frame(const Image &z, int &n, string &save_name)
 {
     Image x = z;
@@ -434,6 +491,7 @@ void Edge_Detect(Image &image)
     edged_img.saveImage("edged_img.png");
 }
 void Menu()
+
 {
     string st;
     string st_2;
@@ -447,8 +505,10 @@ void Menu()
     {
         cout << "Select the number for the filter you want to apply! \n ";
         cout << "1: Gray scale \n "
+             << "2: Black & White \n "
              << "3:Invert image\n"
              << "4: Brightness \n "
+             << "5: Flip \n "
              << "6:Rotate image\n"
              << "7: Merge\n "
              << "9:Adding a frame\n"
@@ -470,6 +530,11 @@ void Menu()
             Grayscale(img_1);
             break;
         }
+        case 2:
+        {
+            black_white(img_1);
+            break;
+        }
         case 3:
         {
             string name2;
@@ -486,6 +551,27 @@ void Menu()
 
             Brightness(img_1, n);
             break;
+        }
+        case 5:
+        {
+            int flip_type;
+            cout << "Do you want flip it vertical or horizontal\n"
+                 << "1:vertical"
+                 << "2:horizontal";
+            cin >> flip_type;
+            switch (flip_type)
+            {
+            case 1:
+            {
+                vertical_flip(img_1);
+                break;
+            }
+            case 2:
+            {
+                horizontal_flip(img_1);
+                break;
+            }
+            }
         }
         case 6:
         {
