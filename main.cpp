@@ -3,111 +3,113 @@
 #include "Image_Class.h"
 #include<string>
 using namespace std;
-void frame(Image& z, int& n, string& save_name) {
+void frame(const Image& z, int& n, string& save_name) {
+    Image x = z;
     if (n == 1) {
         for (int j = 0;j < 25;j++) {
             for (int i = 0;i < z.width;i++) {
-                z.setPixel(i, j, 0, 0);
-                z.setPixel(i, j, 1, 200);
-                z.setPixel(i, j, 2, 200);
+                x.setPixel(i, j, 0, 0);
+                x.setPixel(i, j, 1, 200);
+                x.setPixel(i, j, 2, 200);
             }
         }
         for (int j = z.height - 1;j >= z.height - 25;j--) {
             for (int i = 0;i < z.width;i++) {
-                z.setPixel(i, j, 0, 0);
-                z.setPixel(i, j, 1, 200);
-                z.setPixel(i, j, 2, 200);
+                x.setPixel(i, j, 0, 0);
+                x.setPixel(i, j, 1, 200);
+                x.setPixel(i, j, 2, 200);
             }
         }
-        for (int i = 0;i < 10;i++) {
+        for (int i = 0;i < 25;i++) {
             for (int j = 0;j < z.height;j++) {
-                z.setPixel(i, j, 0, 0);
-                z.setPixel(i, j, 1, 200);
-                z.setPixel(i, j, 2, 200);
+                x.setPixel(i, j, 0, 0);
+                x.setPixel(i, j, 1, 200);
+                x.setPixel(i, j, 2, 200);
             }
         }
-        for (int i = z.width - 1;i >= z.width - 10;i--) {
+        for (int i = z.width - 1;i >= z.width - 25;i--) {
             for (int j = 0;j < z.height;j++) {
-                z.setPixel(i, j, 0, 0);
-                z.setPixel(i, j, 1, 200);
-                z.setPixel(i, j, 2, 200);
+                x.setPixel(i, j, 0, 0);
+                x.setPixel(i, j, 1, 200);
+                x.setPixel(i, j, 2, 200);
             }
         }
-        z.saveImage(save_name);
+        x.saveImage(save_name);
     }
     else if (n == 2) {
         for (int j = 0;j < 25;j++) {
             for (int i = 0;i < z.width;i++) {
-                z.setPixel(i, j, 0, 0);
-                z.setPixel(i, j, 1, 200);
-                z.setPixel(i, j, 2, 200);
+                x.setPixel(i, j, 0, 0);
+                x.setPixel(i, j, 1, 200);
+                x.setPixel(i, j, 2, 200);
             }
         }
         for (int j = z.height - 1;j >= z.height - 25;j--) {
             for (int i = 0;i < z.width;i++) {
-                z.setPixel(i, j, 0, 0);
-                z.setPixel(i, j, 1, 200);
-                z.setPixel(i, j, 2, 200);
+                x.setPixel(i, j, 0, 0);
+                x.setPixel(i, j, 1, 200);
+                x.setPixel(i, j, 2, 200);
             }
         }
-        for (int i = 0;i < 10;i++) {
+        for (int i = 0;i < 25;i++) {
             for (int j = 0;j < z.height;j++) {
-                z.setPixel(i, j, 0, 0);
-                z.setPixel(i, j, 1, 200);
-                z.setPixel(i, j, 2, 200);
+                x.setPixel(i, j, 0, 0);
+                x.setPixel(i, j, 1, 200);
+                x.setPixel(i, j, 2, 200);
             }
         }
-        for (int i = z.width - 1;i >= z.width - 10;i--) {
+        for (int i = z.width - 1;i >= z.width - 25;i--) {
             for (int j = 0;j < z.height;j++) {
-                z.setPixel(i, j, 0, 0);
-                z.setPixel(i, j, 1, 200);
-                z.setPixel(i, j, 2, 200);
+                x.setPixel(i, j, 0, 0);
+                x.setPixel(i, j, 1, 200);
+                x.setPixel(i, j, 2, 200);
             }
         }
         for (int i = 0;i < z.width;i++) {
-            z.setPixel(i, 25, 0, 255);
-            z.setPixel(i, 25, 1, 255);
-            z.setPixel(i, 25, 2, 255);
+            x.setPixel(i, 25, 0, 255);
+            x.setPixel(i, 25, 1, 255);
+            x.setPixel(i, 25, 2, 255);
         }
         for (int i = 0;i < z.width;i++) {
-            z.setPixel(i, 30, 0, 255);
-            z.setPixel(i, 30, 1, 255);
-            z.setPixel(i, 30, 2, 255);
+            x.setPixel(i, 30, 0, 255);
+            x.setPixel(i, 30, 1, 255);
+            x.setPixel(i, 30, 2, 255);
         }
         for (int j = 0;j < z.height;j++) {
-            z.setPixel(10, j, 0, 255);
-            z.setPixel(10, j, 1, 255);
-            z.setPixel(10, j, 2, 255);
+            x.setPixel(25, j, 0, 255);
+            x.setPixel(25, j, 1, 255);
+            x.setPixel(25, j, 2, 255);
         }
         for (int j = 0;j < z.height;j++) {
-            z.setPixel(15, j, 0, 255);
-            z.setPixel(15, j, 1, 255);
-            z.setPixel(15, j, 2, 255);
+            x.setPixel(30, j, 0, 255);
+            x.setPixel(30, j, 1, 255);
+            x.setPixel(30, j, 2, 255);
         }
         for (int i = 0;i < z.width;i++) {
-            z.setPixel(i, z.height - 26, 0, 255);
-            z.setPixel(i, z.height - 26, 1, 255);
-            z.setPixel(i, z.height - 26, 2, 255);
+            x.setPixel(i, z.height - 26, 0, 255);
+            x.setPixel(i, z.height - 26, 1, 255);
+            x.setPixel(i, z.height - 26, 2, 255);
         }
         for (int i = 0;i < z.width;i++) {
-            z.setPixel(i, z.height - 31, 0, 255);
-            z.setPixel(i, z.height - 31, 1, 255);
-            z.setPixel(i, z.height - 31, 2, 255);
+            x.setPixel(i, z.height - 31, 0, 255);
+            x.setPixel(i, z.height - 31, 1, 255);
+            x.setPixel(i, z.height - 31, 2, 255);
         }
         for (int j = 0;j < z.height;j++) {
-            z.setPixel(z.width - 11, j, 0, 255);
-            z.setPixel(z.width - 11, j, 1, 255);
-            z.setPixel(z.width - 11, j, 2, 255);
+            x.setPixel(z.width - 26, j, 0, 255);
+            x.setPixel(z.width - 26, j, 1, 255);
+            x.setPixel(z.width - 26, j, 2, 255);
         }
         for (int j = 0;j < z.height;j++) {
-            z.setPixel(z.width - 16, j, 0, 255);
-            z.setPixel(z.width - 16, j, 1, 255);
-            z.setPixel(z.width - 16, j, 2, 255);
+            x.setPixel(z.width - 31, j, 0, 255);
+            x.setPixel(z.width - 31, j, 1, 255);
+            x.setPixel(z.width - 31, j, 2, 255);
         }
-        z.saveImage(save_name);
+        x.saveImage(save_name);
     }
 }
-void invert(Image& inverted, string& save_name) {
+void invert(const Image& z, string& name2) {
+    Image inverted = z;
     for (int j = 0;j < inverted.height;j++) {
         for (int i = 0;i < inverted.width; i++) {
             for (int c = 0;c < 3;c++) {
@@ -115,9 +117,9 @@ void invert(Image& inverted, string& save_name) {
             }
         }
     }
-    inverted.saveImage(save_name);
+    inverted.saveImage(name2);
 }
-void blurring(Image& f, string& save_name) {
+void blurring(const Image& f, string& save_name) {
     Image c = f;
     for (int j = 0;j < f.height;j++) {
         for (int i = 0;i < f.width;i++) {
@@ -131,9 +133,9 @@ void blurring(Image& f, string& save_name) {
                         continue;
                     }
                     else {
-                        sumR += c(i + x, j + y, 0);
-                        sumG += c(i + x, j + y, 1);
-                        sumB += c(i + x, j + y, 2);
+                        sumR += f(i + x, j + y, 0);
+                        sumG += f(i + x, j + y, 1);
+                        sumB += f(i + x, j + y, 2);
                         d++;
 
                     }
@@ -145,12 +147,12 @@ void blurring(Image& f, string& save_name) {
             int avgR = sumR / d;
             int avgG = sumG / d;
             int avgB = sumB / d;
-            f(i, j, 0) = avgR;
-            f(i, j, 1) = avgG;
-            f(i, j, 2) = avgB;
+            c(i, j, 0) = avgR;
+            c(i, j, 1) = avgG;
+            c(i, j, 2) = avgB;
         }
     }
-    f.saveImage(save_name);
+    c.saveImage(save_name);
 }
 void Rotation(const Image& z, int& n, string& save_name) {
     int original_height = z.height;
@@ -364,9 +366,13 @@ void Menue()
     int choice;
     cin >> choice;
     cout << "1: Gray scale \n "
+         <<"3:Invert image\n"
          << "4: Brightness \n "
+         <<"6:Rotate image\n"
          << "7: Merge\n "
+         <<"9:Adding a frame\n"
          << "10: Edge Detect \n "
+         <<"12:Blur image\n"
          << "0:EXITE";
     switch (choice)
     {
@@ -379,6 +385,13 @@ void Menue()
         Grayscale(img_1);
         break;
     }
+    case 3: {
+        string  name2;
+        cout << "enter the name of the image after being inverted and its extension:\n";
+        cin >> name2;
+        invert(img_1, name2);
+        break;
+    }
     case 4:
     {
 
@@ -386,6 +399,16 @@ void Menue()
         cin >> n;
 
         Brightness(img_1, n);
+        break;
+    }
+    case 6: {
+        string  save_name;
+        cout << "enter the name you want to save the image with and the extension like( filename.jpg , filename.bmp , filename.png ):\n";
+        cin >> save_name;
+        cout << "choose the rotation angle:\n" << "1. 90 degrees\n" << "2. 180 degrees\n" << "3. 270 degrees\n";
+        int n;
+        cin >> n;
+        Rotation(img_1, n, save_name);
         break;
     }
     case 7:
@@ -397,9 +420,26 @@ void Menue()
         Merge(img_1, img_2);
         break;
     }
+    case 9: {
+        string  save_name;
+        cout << "enter the name you want to save the image with:\n";
+        cin >> save_name;
+        int n;
+        cout << "choose : \n" << "1. simple frame\n" << "2. simple frame + white lines\n ";
+        cin >> n;
+        frame(img_1, n, save_name);
+        break;
+    }
     case 10:
     {
         Edge_Detect(img_1);
+        break;
+    }
+    case 12:{
+        string save_name;
+        cout << "enter the name you want for the blurred image and its extension:\n";
+        cin >> save_name;
+        blurring(img_1, save_name);
         break;
     }
     }
