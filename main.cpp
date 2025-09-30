@@ -287,6 +287,11 @@ void Grayscale(Image &image)
 
 void Brightness(Image &image, float gamma_value)
 {
+    if (gamma_value <= 0)
+    {
+        cout << "Brightness factor must be greater than 0" << endl;
+        return;
+    }
     float inverse_gamma = 1.0f / gamma_value;
 
     for (int y = 0; y < image.height; ++y)
@@ -428,108 +433,117 @@ void Edge_Detect(Image &image)
 
     edged_img.saveImage("edged_img.png");
 }
-void Menue()
+void Menu()
 {
     string st;
     string st_2;
     float n;
-    Image img_2();
+
     cout << "Upload your photo";
     cin >> st;
     Image img_1(st);
-    cout << "Select the number for the filter you want to apply! \n ";
-    int choice;
-    cin >> choice;
-    cout << "1: Gray scale \n "
-         << "3:Invert image\n"
-         << "4: Brightness \n "
-         << "6:Rotate image\n"
-         << "7: Merge\n "
-         << "9:Adding a frame\n"
-         << "10: Edge Detect \n "
-         << "12:Blur image\n"
-         << "0:EXITE";
-    switch (choice)
+    bool running = true;
+    while (running)
     {
-    case 0:
-    {
-        break;
-    }
-    case 1:
-    {
-        Grayscale(img_1);
-        break;
-    }
-    case 3:
-    {
-        string name2;
-        cout << "enter the name of the image after being inverted and its extension:\n";
-        cin >> name2;
-        invert(img_1, name2);
-        break;
-    }
-    case 4:
-    {
+        cout << "Select the number for the filter you want to apply! \n ";
+        cout << "1: Gray scale \n "
+             << "3:Invert image\n"
+             << "4: Brightness \n "
+             << "6:Rotate image\n"
+             << "7: Merge\n "
+             << "9:Adding a frame\n"
+             << "10: Edge Detect \n "
+             << "12:Blur image\n"
+             << "0:EXITE\n";
+        int choice;
+        cin >> choice;
 
-        cout << "Enter the Percintage of Brightness you want ";
-        cin >> n;
+        switch (choice)
+        {
+        case 0:
+        {
+            running = 0;
+            break;
+        }
+        case 1:
+        {
+            Grayscale(img_1);
+            break;
+        }
+        case 3:
+        {
+            string name2;
+            cout << "enter the name of the image after being inverted and its extension:\n";
+            cin >> name2;
+            invert(img_1, name2);
+            break;
+        }
+        case 4:
+        {
 
-        Brightness(img_1, n);
-        break;
-    }
-    case 6:
-    {
-        string save_name;
-        cout << "enter the name you want to save the image with and the extension like( filename.jpg , filename.bmp , filename.png ):\n";
-        cin >> save_name;
-        cout << "choose the rotation angle:\n"
-             << "1. 90 degrees\n"
-             << "2. 180 degrees\n"
-             << "3. 270 degrees\n";
-        int n;
-        cin >> n;
-        Rotation(img_1, n, save_name);
-        break;
-    }
-    case 7:
+            cout << "Enter the Percintage of Brightness you want ";
+            cin >> n;
 
-    {
-        cout << "Upload anther Image to Merge them ";
-        cin >> st_2;
-        Image img_2(st_2);
-        Merge(img_1, img_2);
-        break;
-    }
-    case 9:
-    {
-        string save_name;
-        cout << "enter the name you want to save the image with:\n";
-        cin >> save_name;
-        int n;
-        cout << "choose : \n"
-             << "1. simple frame\n"
-             << "2. simple frame + white lines\n ";
-        cin >> n;
-        frame(img_1, n, save_name);
-        break;
-    }
-    case 10:
-    {
-        Edge_Detect(img_1);
-        break;
-    }
-    case 12:
-    {
-        string save_name;
-        cout << "enter the name you want for the blurred image and its extension:\n";
-        cin >> save_name;
-        blurring(img_1, save_name);
-        break;
-    }
+            Brightness(img_1, n);
+            break;
+        }
+        case 6:
+        {
+            string save_name;
+            cout << "enter the name you want to save the image with and the extension like( filename.jpg , filename.bmp , filename.png ):\n";
+            cin >> save_name;
+            cout << "choose the rotation angle:\n"
+                 << "1. 90 degrees\n"
+                 << "2. 180 degrees\n"
+                 << "3. 270 degrees\n";
+            int n;
+            cin >> n;
+            Rotation(img_1, n, save_name);
+            break;
+        }
+        case 7:
+
+        {
+            cout << "Upload anther Image to Merge them ";
+            cin >> st_2;
+            Image img_2(st_2);
+            Merge(img_1, img_2);
+            break;
+        }
+        case 9:
+        {
+            string save_name;
+            cout << "enter the name you want to save the image with:\n";
+            cin >> save_name;
+            int n;
+            cout << "choose : \n"
+                 << "1. simple frame\n"
+                 << "2. simple frame + white lines\n ";
+            cin >> n;
+            frame(img_1, n, save_name);
+            break;
+        }
+        case 10:
+        {
+            Edge_Detect(img_1);
+            break;
+        }
+        case 12:
+        {
+            string save_name;
+            cout << "enter the name you want for the blurred image and its extension:\n";
+            cin >> save_name;
+            blurring(img_1, save_name);
+            break;
+        }
+        default:
+            cout << "Invalid choice" << endl;
+            break;
+        }
     }
 }
 int main()
 {
-    Menue();
+    Menu();
     return 0;
 }
