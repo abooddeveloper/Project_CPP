@@ -246,17 +246,50 @@ void Brightness(Image &image, float gamma_value)
 
 void Merge(Image &img1, Image &img2)
 {
-    Image img3(img1.width, img1.height);
-    for (int y = 0; y < img1.height; ++y)
+    int option;
+    cout << "There are two options in case your images are not same size \n"
+         << "option 1 : Resize to biggest dimensions \n"
+         << "option 2 : Merge common area \n";
+    cin >> option;
+
+    int newWidth, newHeight;
+
+    if (option == 1) // Resize to biggest dimensions
     {
-        for (int x = 0; x < img1.width; ++x)
+        Image resized(max(img1.width, img2.width), max(img1.height, img2.height));
+
+        for (int y = 0; y < resized.height; ++y)
         {
-            img3(x, y, 0) = (img2(x, y, 0) + img1(x, y, 0)) / 2;
-            img3(x, y, 1) = (img2(x, y, 1) + img1(x, y, 1)) / 2;
-            img3(x, y, 2) = (img2(x, y, 2) + img1(x, y, 2)) / 2;
+            for (int x = 0; x < resized.width; ++x)
+            {
+                resized(x, y, 0) = (img1(x, y, 0) + img2(x, y, 0)) / 2;
+                resized(x, y, 1) = (img1(x, y, 1) + img2(x, y, 1)) / 2;
+                resized(x, y, 2) = (img1(x, y, 2) + img2(x, y, 2)) / 2;
+            }
         }
+        resized.saveImage("Merge_Resize.jpg");
     }
-    img3.saveImage("Merge.jpg");
+    else if (option == 2) // Merge common area
+    {
+        newWidth = min(img1.width, img2.width);
+        newHeight = min(img1.height, img2.height);
+
+        Image img3(newWidth, newHeight);
+        for (int y = 0; y < newHeight; ++y)
+        {
+            for (int x = 0; x < newWidth; ++x)
+            {
+                img3(x, y, 0) = (img1(x, y, 0) + img2(x, y, 0)) / 2;
+                img3(x, y, 1) = (img1(x, y, 1) + img2(x, y, 1)) / 2;
+                img3(x, y, 2) = (img1(x, y, 2) + img2(x, y, 2)) / 2;
+            }
+        }
+        img3.saveImage("Merge_Common.jpg");
+    }
+    else
+    {
+        cout << "Invalid option" << endl;
+    }
 }
 
 void Edge_Detect(Image &image)
@@ -318,13 +351,61 @@ void Edge_Detect(Image &image)
 
     edged_img.saveImage("edged_img.png");
 }
-void Menue(){
-    cout<<"choose filter";
+void Menue()
+{
+    string st;
+    string st_2;
+    float n;
+    Image img_2();
+    cout << "Upload your photo";
+    cin >> st;
+    Image img_1(st);
+    cout << "Select the number for the filter you want to apply! \n ";
+    int choice;
+    cin >> choice;
+    cout << "1: Gray scale \n "
+         << "4: Brightness \n "
+         << "7: Merge\n "
+         << "10: Edge Detect \n "
+         << "0:EXITE";
+    switch (choice)
+    {
+         case 0:
+    {
+        break;
+    }
+    case 1:
+    {
+        Grayscale(img_1);
+        break;
+    }
+    case 4:
+    {
 
+        cout << "Enter the Percintage of Brightness you want ";
+        cin >> n;
+
+        Brightness(img_1, n);
+        break;
+    }
+    case 7:
+
+    {
+        cout << "Upload anther Image to Merge them ";
+        cin >> st_2;
+        Image img_2(st_2);
+        Merge(img_1, img_2);
+        break;
+    }
+    case 10:
+    {
+        Edge_Detect(img_1);
+        break;
+    }
+    }
 }
 int main()
 {
-    Image img("photographer.jpg");
-    Edge_Detect(img);
+ Menue();
     return 0;
 }
