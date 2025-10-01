@@ -24,7 +24,7 @@ Image ResizeTo(Image &src, int newWidth, int newHeight)
     return resized;
 }
 
-void black_white(Image &image)
+void black_white(Image &image,string&save_name)
 {
     for (int y = 0; y < image.height; y++)
     {
@@ -48,10 +48,10 @@ void black_white(Image &image)
             image(x, y, 2) = bw;
         }
     }
-    image.saveImage("output_bw.jpg");
+    image.saveImage(save_name);
 }
 
-void horizontal_flip(Image &image)
+void horizontal_flip(Image &image,string&save_name)
 {
     for (int y = 0; y < image.height; y++)
     {
@@ -63,10 +63,10 @@ void horizontal_flip(Image &image)
             }
         }
     }
-    image.saveImage("output_horizontal.png");
+    image.saveImage(save_name);
 }
 
-void vertical_flip(Image &image)
+void vertical_flip(Image &image,string&save_name)
 {
     for (int y = 0; y < image.height / 2; y++)
     {
@@ -78,7 +78,7 @@ void vertical_flip(Image &image)
             }
         }
     }
-    image.saveImage("output_vertical.png");
+    image.saveImage(save_name);
 }
 
 void frame(const Image &z, int &n, string &save_name)
@@ -322,7 +322,7 @@ void Rotation(const Image &z, int &n, string &save_name)
         w.saveImage(save_name);
     }
 }
-void Grayscale(Image &image)
+void Grayscale(Image &image,string&save_name)
 {
     for (int y = 0; y < image.height; ++y)
     {
@@ -339,10 +339,10 @@ void Grayscale(Image &image)
             image(x, y, 2) = gray_value;
         }
     }
-    image.saveImage("gray.png");
+    image.saveImage(save_name);
 }
 
-void Brightness(Image &image, float gamma_value)
+void Brightness(Image &image, float gamma_value,string&save_name)
 {
     if (gamma_value <= 0)
     {
@@ -370,10 +370,10 @@ void Brightness(Image &image, float gamma_value)
             }
         }
     }
-    image.saveImage("BR.png");
+    image.saveImage(save_name);
 }
 
-void Merge(Image &img1, Image &img2)
+void Merge(Image &img1, Image &img2, string&save_name)
 {
     int option;
     cout << "There are two options in case your images are not same size \n"
@@ -401,7 +401,7 @@ void Merge(Image &img1, Image &img2)
             }
         }
 
-        img3.saveImage("Merge_Big.jpg");
+        img3.saveImage(save_name);
     }
     else if (option == 2) // resize الكبير على حجم الصغير
     {
@@ -423,7 +423,7 @@ void Merge(Image &img1, Image &img2)
             }
         }
 
-        img3.saveImage("Merge_Small.jpg");
+        img3.saveImage(save_name);
     }
     else
     {
@@ -431,7 +431,7 @@ void Merge(Image &img1, Image &img2)
     }
 }
 
-void Edge_Detect(Image &image)
+void Edge_Detect(Image &image,string&save_name)
 {
 
     Image edged_img(image.width, image.height);
@@ -488,7 +488,7 @@ void Edge_Detect(Image &image)
         }
     }
 
-    edged_img.saveImage("edged_img.png");
+    edged_img.saveImage(save_name);
 }
 void Menu()
 
@@ -527,12 +527,18 @@ void Menu()
         }
         case 1:
         {
-            Grayscale(img_1);
+            string save_name;
+            cout << "enter the name you want to save the image with and the extension like( filename.jpg , filename.bmp , filename.png ):\n";
+            cin >> save_name;
+            Grayscale(img_1,save_name);
             break;
         }
         case 2:
         {
-            black_white(img_1);
+            string save_name;
+            cout << "enter the name you want to save the image with and the extension like( filename.jpg , filename.bmp , filename.png ):\n";
+            cin >> save_name;
+            black_white(img_1,save_name);
             break;
         }
         case 3:
@@ -548,27 +554,33 @@ void Menu()
 
             cout << "Enter the Percintage of Brightness you want ";
             cin >> n;
-
-            Brightness(img_1, n);
+            string save_name;
+            cout << "enter the name you want to save the image with and the extension like( filename.jpg , filename.bmp , filename.png ):\n";
+            cin >> save_name;
+            Brightness(img_1, n,save_name);
             break;
         }
         case 5:
         {
+            
             int flip_type;
             cout << "Do you want flip it vertical or horizontal\n"
                  << "1:vertical"
                  << "2:horizontal";
             cin >> flip_type;
+            string save_name;
+            cout << "enter the name you want to save the image with and the extension like( filename.jpg , filename.bmp , filename.png ):\n";
+            cin >> save_name;
             switch (flip_type)
             {
             case 1:
             {
-                vertical_flip(img_1);
+                vertical_flip(img_1,save_name);
                 break;
             }
             case 2:
             {
-                horizontal_flip(img_1);
+                horizontal_flip(img_1,save_name);
                 break;
             }
             }
@@ -593,7 +605,10 @@ void Menu()
             cout << "Upload anther Image to Merge them ";
             cin >> st_2;
             Image img_2(st_2);
-            Merge(img_1, img_2);
+            string save_name;
+            cout << "enter the name you want to save the image with and the extension like( filename.jpg , filename.bmp , filename.png ):\n";
+            cin >> save_name;
+            Merge(img_1, img_2,save_name);
             break;
         }
         case 9:
@@ -611,7 +626,10 @@ void Menu()
         }
         case 10:
         {
-            Edge_Detect(img_1);
+            string save_name;
+            cout << "enter the name you want to save the image with and the extension like( filename.jpg , filename.bmp , filename.png ):\n";
+            cin >> save_name;
+            Edge_Detect(img_1,save_name);
             break;
         }
         case 12:
