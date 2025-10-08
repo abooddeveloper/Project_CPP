@@ -3,6 +3,35 @@
 #include "Image_Class.h"
 #include <string>
 using namespace std;
+void resizing(const Image& image, string filename, int newWidth, int newHeight) {
+    Image resized(newWidth, newHeight);
+    for (int y = 0; y < newHeight; y++) {
+        for (int x = 0; x < newWidth; x++) {
+            for (int c = 0; c < 3; c++) {
+                int srcx = x * image.width / newWidth;
+                int srcy = y * image.height / newHeight;
+                resized(x, y, c) = image(srcx, srcy, c);
+            }
+        }
+    }
+    resized.saveImage("filename");
+}
+void cropping(const Image& image, string filename, int x, int y, int w, int h) {
+    if (x + w > image.width || y + h > image.height) {
+        cout << "Error: Out of bounds!" << endl;
+        exit(1);
+    }
+    Image croppedImage(w, h);
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            for (int c = 0; c < 3; c++) {
+                croppedImage(i, j, c) = image(i + y, j + x, c);
+            }
+        }
+    }
+
+    croppedImage.saveImage("filename");
+}
 Image ResizeTo(Image &src, int newWidth, int newHeight)
 {
     Image resized(newWidth, newHeight);
@@ -511,10 +540,13 @@ void Menu()
              << "5: Flip \n "
              << "6:Rotate image\n"
              << "7: Merge\n "
+			<< "8: Crop image\n"
              << "9:Adding a frame\n"
              << "10: Edge Detect \n "
+			<< "11: Resizing image\n"
              << "12:Blur image\n"
              << "0:EXITE\n";
+             
         int choice;
         cin >> choice;
 
@@ -611,6 +643,19 @@ void Menu()
             Merge(img_1, img_2,save_name);
             break;
         }
+        case 8:
+        {
+            int x, y, w, h;
+            cout << "Enter x and y: ";
+            cin >> x >> y;
+            cout << "Enter width and height: ";
+            cin >> w >> h;
+            string filename;
+            cout << "enter the name you want to save the image with and the extension like( filename.jpg , filename.bmp , filename.png ):\n";
+            cin >> filename;
+            cropping(img_1, filename, x, y, w, h);
+			break;
+        }
         case 9:
         {
             string save_name;
@@ -631,6 +676,16 @@ void Menu()
             cin >> save_name;
             Edge_Detect(img_1,save_name);
             break;
+        }
+        case 11:
+        {
+            int newwidth, newheight;
+            string filename;
+            cout << "Enter new width and new height: ";
+            cin >> newwidth >> newheight;
+            cout << "enter the name you want to save the image with and the extension like( filename.jpg , filename.bmp , filename.png ):\n ";
+            cin >> filename;
+            resizing(img_1, filename, newwidth, newheight);
         }
         case 12:
         {
