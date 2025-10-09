@@ -3,6 +3,86 @@
 #include "Image_Class.h"
 #include <string>
 using namespace std;
+void gray_circles(Image& img_2, int center_i, int center_j, int square_of_r, int r) {
+    for (int j = center_j - r;j <= center_j + r;j++) {
+        for (int i = center_i - r;i <= center_i + r;i++) {
+            int i_center_i = i - center_i;
+            int j_center_j = j - center_j;
+            if (((i_center_i) * (i_center_i)) + ((j_center_j) * (j_center_j)) <= square_of_r) {
+                img_2(i, j, 0) = 125;
+                img_2(i, j, 1) = 125;
+                img_2(i, j, 2) = 125;
+            }
+
+
+
+        }
+    }
+}
+void frame(const Image& img, int n, string save_name) {
+    if (n == 1) {
+        int width = img.width;
+        int height = img.height;
+
+
+        int frame = 30;
+        int New_width = width + (2 * frame);
+        int New_height = height + (2 * frame);
+        Image img_2(New_width, New_height);
+        for (int j = 0;j < New_height;j++) {
+            for (int i = 0;i < New_width;i++) {
+                img_2(i, j, 0) = 211;
+                img_2(i, j, 1) = 175;
+                img_2(i, j, 2) = 55;
+            }
+        }
+        for (int j = 0;j < height;j++) {
+            for (int i = 0;i < width;i++) {
+                for (int c = 0;c < 3;c++) {
+                    img_2(i + frame, j + frame, c) = img(i, j, c);
+                }
+            }
+        }
+        img_2.saveImage(save_name);
+    }
+    else if (n == 2) {
+        int width = img.width;
+        int height = img.height;
+        int frame = 50;
+        int New_width = width + (2 * frame);
+        int New_height = height + (2 * frame);
+        Image img_2(New_width, New_height);
+        for (int j = 0;j < New_height;j++) {
+            for (int i = 0;i < New_width;i++) {
+                img_2(i, j, 0) = 211;
+                img_2(i, j, 1) = 175;
+                img_2(i, j, 2) = 55;
+            }
+        }
+        int center_of_frame = 25;
+        int r = 3;
+        int square_of_r = 9;
+        int const_space = 9;
+        for (int i = 24;i <= New_width - 26;i += const_space) {
+            gray_circles(img_2, i, 24, square_of_r, r);
+            gray_circles(img_2, i, New_height - 26, square_of_r, r);
+        }
+        for (int j = 24;j <= New_height - 26;j += const_space) {
+            gray_circles(img_2, 24, j, square_of_r, r);
+            gray_circles(img_2, New_width - 26, j, square_of_r, r);
+        }
+        for (int j = 0;j < height;j++) {
+            for (int i = 0;i < width;i++) {
+                for (int c = 0;c < 3;c++) {
+                    img_2(i + frame, j + frame, c) = img(i, j, c);
+                }
+            }
+        }
+        img_2.saveImage(save_name);
+
+
+    }
+}
 void resizing(const Image& image, string filename, int newWidth, int newHeight) {
     Image resized(newWidth, newHeight);
     for (int y = 0; y < newHeight; y++) {
@@ -108,139 +188,6 @@ void vertical_flip(Image &image,string&save_name)
         }
     }
     image.saveImage(save_name);
-}
-
-void frame(const Image &z, int &n, string &save_name)
-{
-    Image x = z;
-    if (n == 1)
-    {
-        for (int j = 0; j < 25; j++)
-        {
-            for (int i = 0; i < z.width; i++)
-            {
-                x.setPixel(i, j, 0, 0);
-                x.setPixel(i, j, 1, 200);
-                x.setPixel(i, j, 2, 200);
-            }
-        }
-        for (int j = z.height - 1; j >= z.height - 25; j--)
-        {
-            for (int i = 0; i < z.width; i++)
-            {
-                x.setPixel(i, j, 0, 0);
-                x.setPixel(i, j, 1, 200);
-                x.setPixel(i, j, 2, 200);
-            }
-        }
-        for (int i = 0; i < 25; i++)
-        {
-            for (int j = 0; j < z.height; j++)
-            {
-                x.setPixel(i, j, 0, 0);
-                x.setPixel(i, j, 1, 200);
-                x.setPixel(i, j, 2, 200);
-            }
-        }
-        for (int i = z.width - 1; i >= z.width - 25; i--)
-        {
-            for (int j = 0; j < z.height; j++)
-            {
-                x.setPixel(i, j, 0, 0);
-                x.setPixel(i, j, 1, 200);
-                x.setPixel(i, j, 2, 200);
-            }
-        }
-        x.saveImage(save_name);
-    }
-    else if (n == 2)
-    {
-        for (int j = 0; j < 25; j++)
-        {
-            for (int i = 0; i < z.width; i++)
-            {
-                x.setPixel(i, j, 0, 0);
-                x.setPixel(i, j, 1, 200);
-                x.setPixel(i, j, 2, 200);
-            }
-        }
-        for (int j = z.height - 1; j >= z.height - 25; j--)
-        {
-            for (int i = 0; i < z.width; i++)
-            {
-                x.setPixel(i, j, 0, 0);
-                x.setPixel(i, j, 1, 200);
-                x.setPixel(i, j, 2, 200);
-            }
-        }
-        for (int i = 0; i < 25; i++)
-        {
-            for (int j = 0; j < z.height; j++)
-            {
-                x.setPixel(i, j, 0, 0);
-                x.setPixel(i, j, 1, 200);
-                x.setPixel(i, j, 2, 200);
-            }
-        }
-        for (int i = z.width - 1; i >= z.width - 25; i--)
-        {
-            for (int j = 0; j < z.height; j++)
-            {
-                x.setPixel(i, j, 0, 0);
-                x.setPixel(i, j, 1, 200);
-                x.setPixel(i, j, 2, 200);
-            }
-        }
-        for (int i = 0; i < z.width; i++)
-        {
-            x.setPixel(i, 25, 0, 255);
-            x.setPixel(i, 25, 1, 255);
-            x.setPixel(i, 25, 2, 255);
-        }
-        for (int i = 0; i < z.width; i++)
-        {
-            x.setPixel(i, 30, 0, 255);
-            x.setPixel(i, 30, 1, 255);
-            x.setPixel(i, 30, 2, 255);
-        }
-        for (int j = 0; j < z.height; j++)
-        {
-            x.setPixel(25, j, 0, 255);
-            x.setPixel(25, j, 1, 255);
-            x.setPixel(25, j, 2, 255);
-        }
-        for (int j = 0; j < z.height; j++)
-        {
-            x.setPixel(30, j, 0, 255);
-            x.setPixel(30, j, 1, 255);
-            x.setPixel(30, j, 2, 255);
-        }
-        for (int i = 0; i < z.width; i++)
-        {
-            x.setPixel(i, z.height - 26, 0, 255);
-            x.setPixel(i, z.height - 26, 1, 255);
-            x.setPixel(i, z.height - 26, 2, 255);
-        }
-        for (int i = 0; i < z.width; i++)
-        {
-            x.setPixel(i, z.height - 31, 0, 255);
-            x.setPixel(i, z.height - 31, 1, 255);
-            x.setPixel(i, z.height - 31, 2, 255);
-        }
-        for (int j = 0; j < z.height; j++)
-        {
-            x.setPixel(z.width - 26, j, 0, 255);
-            x.setPixel(z.width - 26, j, 1, 255);
-            x.setPixel(z.width - 26, j, 2, 255);
-        }
-        for (int j = 0; j < z.height; j++)
-        {
-            x.setPixel(z.width - 31, j, 0, 255);
-            x.setPixel(z.width - 31, j, 1, 255);
-            x.setPixel(z.width - 31, j, 2, 255);
-        }
-        x.saveImage(save_name);
-    }
 }
 void invert(const Image &z, string &name2)
 {
@@ -658,14 +605,12 @@ void Menu()
         }
         case 9:
         {
-            string save_name;
-            cout << "enter the name you want to save the image with:\n";
-            cin >> save_name;
             int n;
-            cout << "choose : \n"
-                 << "1. simple frame\n"
-                 << "2. simple frame + white lines\n ";
+            cout << "choose :\n" << "1.simple frame\n" << "2.decorated frame\n";
             cin >> n;
+            cout << "enter the name you want to save the image with and the extension like( filename.jpg , filename.bmp , filename.png ):\n";
+            string save_name;
+            cin >> save_name;
             frame(img_1, n, save_name);
             break;
         }
